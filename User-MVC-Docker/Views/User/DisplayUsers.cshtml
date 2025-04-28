@@ -1,0 +1,47 @@
+﻿@model IEnumerable<User_MVC_Docker.DTO.UserDTO>
+@{
+    ViewBag.Title = "users";
+}
+<div class="row my-2">
+    <h2 style="
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    ">
+        User List
+    </h2>
+</div>
+
+@if (TempData["usercreated"] is not null)
+{
+    <div class="alert alert-success text-center">
+        @TempData["usercreated"]
+    </div>
+}
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Country</th>
+            <th>Age</th>
+            <th>Phone Number</th>
+        </tr>
+
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td>@item.Email</td>
+                <td>@item.Country</td>
+                <td>@item.Age</td>
+                <td>@item.PhoneNumber</td>
+            </tr>
+        }
+    </tbody>
+</table>

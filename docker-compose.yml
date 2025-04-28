@@ -1,0 +1,28 @@
+networks:
+    userNetwork:
+services:
+  userDB:
+    container_name: userDB
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    ports:
+      - "1433:1433"
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "mrAyesh123#"
+    networks:
+      - userNetwork
+  user-mvc-docker:
+    container_name: userAPP
+    ports:
+      - "8060:8080"
+    depends_on: 
+    - userDB
+    networks: 
+    - userNetwork
+    image: ${DOCKER_REGISTRY-}usermvcdocker
+    build:
+      context: .
+      dockerfile: User-MVC-Docker/Dockerfile
+    environment:
+      ConnectionStrings__User_DB: "Server=userDB,1433;Database=userDBContainer;User Id=sa;Password=mrAyesh123#;TrustServerCertificate=True;Encrypt=False;"
+
